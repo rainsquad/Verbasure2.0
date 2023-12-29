@@ -1,0 +1,75 @@
+/* YourComponent.css */
+
+.question-section {
+    padding: 5rem 0; /* Adjust the padding as needed */
+  }
+  
+  .question-count {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    /* Add other styles as needed */
+  }
+  
+  .question-text {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    /* Add other styles as needed */
+  }
+  
+  .answer-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .btn-secondary {
+    width: 75%;
+    padding: 1rem;
+    margin: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+  }
+  
+  .btn-primary.green {
+    background-color: #0a944f ; /* Green color for correct answers */
+    color: #fff; /* White text for better visibility */
+  }
+  
+  .btn-primary.red {
+    background-color: #d33f3a; /* Red color for incorrect answers */
+    color: #fff; /* White text for better visibility */
+  }
+
+  .label-success{
+    background-color: #0a944f ; /* Green color for correct answers */
+    color: #fff; /* White text for better visibility */
+  }
+
+  .label-fail{
+    background-color: #d33f3a ; /* Green color for correct answers */
+    color: #fff; /* White text for better visibility */
+  }
+  
+  .btn-primary {
+    width: 50%;
+    padding: 0.5rem;
+    /* Add other styles as needed */
+  }
+  .video-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
+  }
+  
+  .video-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+ 
