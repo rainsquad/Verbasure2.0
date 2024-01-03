@@ -15,7 +15,7 @@ export default function ModuleTypes() {
     return (
         <>
 
-            <div className="container p-3  d-flex justify-content-center" >
+            <div className="container py-5  d-flex justify-content-center" >
                 <h1 ><strong className="p-3 mb-3 bg-primary text-white rounded-pill">SELECT THE MODULE YOU WANTED TO LEARN</strong></h1>
 
             </div>
@@ -28,11 +28,11 @@ export default function ModuleTypes() {
                             <div class="col d-flex justify-content-center" >
 
                                 <Link
-                                    to={"/starter"}
+                                   
+                                    to={"/readmodule"}
                                     className={
                                         location.pathname === "/starter"? "text-primary nav-link py-3" : "nav-link text-secondary py-3"  }>
                                     <img className='w-5 p-5 bg-primary rounded-5' src={read} alt=''></img>
-
 
                                 </Link>
                             </div>

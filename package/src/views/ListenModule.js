@@ -141,7 +141,8 @@ export default function VideoModule() {
     return (
         <>
             <div >
-                <p class="text-uppercase fs-3">Listening Module</p>
+               
+                <p class="text-uppercase fs-3">Listening Module {localStorage.getItem("inputValue")}</p>
                 <h1 className='text-uppercase text-center'><strong>Meeting people at a dinner</strong></h1>
                 <div className='row justify-content-around m-3 py-5' >
                     <AudioPlayer

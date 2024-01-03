@@ -143,18 +143,20 @@ export default function VideoModule() {
 
     return (
         <>
-            <div>
-                
-                <p class="text-uppercase fs-3">Video Module</p>
-                <h1 className='text-uppercase text-center'><strong>Conversation between two friends</strong></h1>
-
-                <YoutubeEmbed embedId="APb_GXbmJ5k" />
-            </div>
-
-            <Row className='row justify-content-around m-3 py-5'>
 
 
-                <Col className='col-5'>
+            <Row className='row justify-content-around  '>
+
+                <Col className='col-7'>
+                    <div>
+
+                        <p class="text-uppercase fs-3">Video Module</p>
+                        <h1 className='text-uppercase text-center'><strong>Conversation between two friends</strong></h1>
+
+                        <YoutubeEmbed embedId="APb_GXbmJ5k" />
+                    </div>
+                </Col>
+                <Col className='col'>
                     <div className='container text-center'>
                         {showScore ? (
                             <>
@@ -169,7 +171,7 @@ export default function VideoModule() {
                             </>
                         ) : (
                             <>
-                                <div className='question-section py-5'>
+                                <div className='question-section '>
                                     <div className='question-count'>
                                         <span>Question {currentQuestion + 1}</span>/{questions.length}
                                     </div>
@@ -216,6 +218,7 @@ export default function VideoModule() {
 
                     </div>
                 </Col>
+
             </Row>
 
         </>

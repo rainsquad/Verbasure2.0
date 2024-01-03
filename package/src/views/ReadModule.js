@@ -4,29 +4,13 @@ import imageFriends from "../assets/images/bg/friends.png"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ShowPoints from './ShowPoints';
-import { useLocation } from 'react-router-dom';
-import LocalStorage from '../layouts/LocalStorage';
 
-export default function Starter() {
+export default function ReadModule() {
 
-  const location = useLocation();
+  
 
-  const [data, setData] = useState([]);
-  const [values, setValues] = useState({
-    name: location.state.name,
-  })
-  console.log(values.name+"values")
-  const [imageData, setImageData] = useState([]);
-  useEffect(() => {
+ 
 
-    axios.post('http://localhost:3002/image', values)
-      .then(res => {
-        setImageData(res.data[0])
-        console.log(res.data[0])
-      })
-      .catch(err => console.log(err));
-  }, []
-  )
 
 
   const questions = [
@@ -250,38 +234,26 @@ export default function Starter() {
   //sending data to show points tab
 
 
-  const [details, setDetails] = useState(
-    
-  );
-
-
-  useEffect(() => {
-
-    setDetails(location.state.name);
-  }, []
-  )
-
 
 
   return (
     <>
-      <div className="row">
+      <div className="row ">
         <div className="col p-3">
           <p class="text-uppercase fs-3">Reading Module </p>
         </div>
-        <div className="col">
-        <h1 className='text-uppercase text-center'><strong>Meeting Up with Friends{location.state.name}</strong></h1>
+        <div className="col-8">
+        <h1 className='text-uppercase text-center'><strong>Meeting Up with Friends</strong></h1>
 
         </div>
-        <div className="col">
-        <LocalStorage parentToChild={location.state.name} />
-          {/* <ShowPoints parentToChild={location.state.name} /> */}
+        <div className="col-2">
+          <ShowPoints parentToChild={localStorage.getItem("inputValue")} />
         </div>
-      
+      {/* //  <LocalStorage parentToChild={location.state.name} /> */}
       </div>
 
 
-      <div className="container container-fluid">
+      <div className="container container-fluid ">
 
 
        
@@ -293,7 +265,7 @@ export default function Starter() {
         </div>
       </div>
 
-      <Row className='row justify-content-cc  '>
+      <Row className='row justify-content-cc px-5 '>
 
 
         <Col className='col'>

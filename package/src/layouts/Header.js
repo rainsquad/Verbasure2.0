@@ -15,7 +15,7 @@ import {
 import { ReactComponent as LogoWhite } from "../assets/images/logos/xtremelogowhite.svg";
 import user1 from "../assets/images/users/user1.jpg";
 
-const Header = () => {
+const Header = ({parentToChild}) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
@@ -69,7 +69,7 @@ const Header = () => {
           </NavItem>
           <NavItem>
             <Link to="/about" className="nav-link">
-             Contact Us
+            Contact Us
             </Link>
           </NavItem>
           
@@ -83,15 +83,7 @@ const Header = () => {
               width="30"
             ></img>
           </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem header>Info</DropdownItem>
-            <DropdownItem>My Account</DropdownItem>
-            <DropdownItem>Edit Profile</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>My Balance</DropdownItem>
-            <DropdownItem>Inbox</DropdownItem>
-            <DropdownItem>Logout</DropdownItem>
-          </DropdownMenu>
+         
         </Dropdown>
       </Collapse>
     </Navbar>

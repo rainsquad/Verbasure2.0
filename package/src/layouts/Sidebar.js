@@ -1,11 +1,11 @@
 import { Button, Nav, NavItem } from "reactstrap";
 import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
-
+import DisplayAvatarBar from "./DisplayAvatarBar";
 const navigation = [
   {
     title: "Dashboard",
-    href: "/starter",
+    href: "/maindashboard",
     icon: "bi bi-speedometer2",
   },
   {
@@ -32,7 +32,8 @@ const Sidebar = () => {
   let location = useLocation();
 
   return (
-    <div className="p-3">
+    <>
+    <div className="">
       <div className="d-flex align-items-center">
         <Logo />
         <span className="ms-auto d-lg-none">
@@ -44,7 +45,7 @@ const Sidebar = () => {
         ></Button>
         </span>
       </div>
-      <div className="pt-4 mt-2">
+      <div className="pt-3 mt-2">
         <Nav vertical className="sidebarNav">
           {navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">
@@ -60,10 +61,15 @@ const Sidebar = () => {
                 <span className="ms-3 d-inline-block">{navi.title}</span>
               </Link>
             </NavItem>
+            
           ))}
         </Nav>
+       
       </div>
+     
     </div>
+     
+     </>
   );
 };
 
