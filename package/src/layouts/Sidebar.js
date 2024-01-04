@@ -5,7 +5,7 @@ import DisplayAvatarBar from "./DisplayAvatarBar";
 const navigation = [
   {
     title: "Dashboard",
-    href: "/maindashboard",
+    href: "/dashboard",
     icon: "bi bi-speedometer2",
   },
   {

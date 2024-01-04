@@ -72,4 +72,14 @@
     width: 100%;
     position: absolute;
   }
- 
+  .card {
+    border: 1px solid #ddd;
+    padding: 16px;
+    margin: 16px;
+    border-radius: 8px;
+  }
+  
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+  }

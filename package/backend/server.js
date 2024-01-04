@@ -117,6 +117,21 @@ app.use(cors());
 //   });
 // });
 
+
+//get cards
+app.get('/data', (req, res) => {
+    const query = 'SELECT * FROM login'; 
+  
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error('MySQL query error:', err);
+        res.status(500).send('Internal Server Error');
+      } else {
+        console.log(results)
+        res.json(results);
+      }
+    });
+  });
 app.listen(3002, () => {
     console.log("listening on port"+3002);
 })

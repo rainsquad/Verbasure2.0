@@ -250,16 +250,8 @@ export default function Starter() {
   //sending data to show points tab
 
 
-  const [details, setDetails] = useState(
-    
-  );
-
-
-  useEffect(() => {
-
-    setDetails(location.state.name);
-  }, []
-  )
+ 
+  
 
 
 

@@ -7,9 +7,9 @@ import ShowPoints from './ShowPoints';
 
 export default function ReadModule() {
 
-  
 
- 
+
+
 
 
 
@@ -243,20 +243,20 @@ export default function ReadModule() {
           <p class="text-uppercase fs-3">Reading Module </p>
         </div>
         <div className="col-8">
-        <h1 className='text-uppercase text-center'><strong>Meeting Up with Friends</strong></h1>
+          <h1 className='text-uppercase text-center'><strong>Meeting Up with Friends</strong></h1>
 
         </div>
         <div className="col-2">
           <ShowPoints parentToChild={localStorage.getItem("inputValue")} />
         </div>
-      {/* //  <LocalStorage parentToChild={location.state.name} /> */}
+        {/* //  <LocalStorage parentToChild={location.state.name} /> */}
       </div>
 
 
       <div className="container container-fluid ">
 
 
-       
+
 
         <div>
           {/* <button primary onClick={() => parentToChild()}>Click Parent</button> */}
@@ -312,11 +312,11 @@ export default function ReadModule() {
               </>
             ) : (
               <>
-                <div className='question-section py-5'>
-                  <div className='question-count'>
-                    <span>Question {currentQuestion + 1}</span>/{questions.length}
+                <div className='question-section'>
+                  <div className='question-count  '>
+                    <span className='text bg-white rounded-2 p-2'>Question {currentQuestion + 1}/{questions.length}</span>
                   </div>
-                  <div className='question-text'>{questions[currentQuestion].questionText}</div>
+                  <div className='question-text  bg-white rounded-3'>{questions[currentQuestion].questionText}</div>
                 </div>
                 <div className='answer-section '>
                   {questions[currentQuestion].answerOptions.map((answerOption, index) => (

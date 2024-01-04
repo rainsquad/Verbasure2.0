@@ -24,6 +24,7 @@ const GetStarted = lazy(() => import("../views/GetStarted.js"));
 const UploadPicture = lazy(() => import("../views/FileUpload.js"));
 const ReadModule = lazy(() => import("../views/ReadModule.js"));
 const MainDashboard = lazy(() => import("../views/MainDashboard.js"));
+const Dashboard = lazy(() => import("../views/CardList.js"));
 /*****Routes******/
 
 const ThemeRoutes = [
@@ -63,6 +64,7 @@ const ThemeRoutes = [
       { path: "/table", exact: true, element: <Tables /> },
       { path: "/forms", exact: true, element: <Forms /> },
       { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
+      { path: "/dashboard", exact: true, element: <Dashboard /> },
     ],
 
 

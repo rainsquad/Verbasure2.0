@@ -2,7 +2,7 @@ import { Row, Col } from 'reactstrap';
 import './Starter.css';
 import React, { useState } from 'react';
 import YoutubeEmbed from './YoutubeEmbed';
-
+import ShowPoints from './ShowPoints';
 
 
 export default function VideoModule() {
@@ -143,16 +143,25 @@ export default function VideoModule() {
 
     return (
         <>
+            <div className="row ">
+                <div className="col p-3">
+
+                    <p class="text-uppercase fs-3">Video Module</p>
+                </div>
+                <div className="col-8">
+                    <h1 className='text-uppercase text-center'><strong>Conversation between two friends</strong></h1>
 
 
+                </div>
+                <div className="col-2">
+                    <ShowPoints parentToChild={localStorage.getItem("inputValue")} />
+                </div>
+                {/* //  <LocalStorage parentToChild={location.state.name} /> */}
+            </div>
             <Row className='row justify-content-around  '>
 
-                <Col className='col-7'>
+                <Col className='col-7 pt-5'>
                     <div>
-
-                        <p class="text-uppercase fs-3">Video Module</p>
-                        <h1 className='text-uppercase text-center'><strong>Conversation between two friends</strong></h1>
-
                         <YoutubeEmbed embedId="APb_GXbmJ5k" />
                     </div>
                 </Col>
@@ -171,11 +180,11 @@ export default function VideoModule() {
                             </>
                         ) : (
                             <>
-                                <div className='question-section '>
-                                    <div className='question-count'>
-                                        <span>Question {currentQuestion + 1}</span>/{questions.length}
+                                <div className='question-section'>
+                                    <div className='question-count  '>
+                                        <span className='text bg-white rounded-2 p-2'>Question {currentQuestion + 1}/{questions.length}</span>
                                     </div>
-                                    <div className='question-text'>{questions[currentQuestion].questionText}</div>
+                                    <div className='question-text  bg-white rounded-3'>{questions[currentQuestion].questionText}</div>
                                 </div>
                                 <div className='answer-section '>
                                     {questions[currentQuestion].answerOptions.map((answerOption, index) => (

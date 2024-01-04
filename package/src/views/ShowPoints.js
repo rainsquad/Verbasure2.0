@@ -1,8 +1,8 @@
 
-import avatar from '../assets/avatars/image 1.png'
+
 import axios from 'axios';
 import React, { useState, useEffect } from "react";
-
+import img_star from '../assets/images/bg/img_star.png'
 
 
 export default function ShowPoints() {
@@ -43,24 +43,41 @@ export default function ShowPoints() {
 
     console.log(localStorage.getItem("inputValue"))
     return (
-        <div className='d-flex align-items-end'>
-            <div className=' gap-2' style={{ width: "300px", height: "150px" }}>
-                <div className='row'>
-                    <div className='col '>
 
-                    <img className='rounded-circle card-img-top ' style={{ width: "120px", height: "120px" }} src={`http://localhost:3002/images/` + imageData.image} alt='card image cap'></img>
+        <div className='container  rounded-5'>
+
+            <div className='container d-flex align-items-end'>
+                <div className='gap-2' >
+
+
+                    <div className='row align-items-start pt-5 '>
+
+
+
+                        <div className='col m-0'>
+                            <h2><strong className='text-white'>{localStorage.getItem("inputValue")}</strong></h2>
+
+                            <div className='row align-items-start '>
+                                <div className='col'>
+                                    <strong className='text-white fs-4'>{points}xp</strong>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                        <div className='col m-0'>
+                            <img className='rounded-circle card-img-top ' style={{ width: "100px", height: "100px" }} src={`http://localhost:3002/images/` + imageData.image} alt='card image cap'></img>
+                        </div>
                     </div>
-                    <div className='col py-5'>
-                    <strong className='text-white'>{localStorage.getItem("inputValue")}</strong>
-                    <br></br>
-                    <strong className='text-white'>P 900{points}</strong>
-                    </div>
+
+
                 </div>
-             
-            
-            </div>
 
+            </div>
         </div>
+
 
 
     )

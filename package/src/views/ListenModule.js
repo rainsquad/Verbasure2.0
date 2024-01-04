@@ -3,7 +3,7 @@ import './Starter.css';
 import React, { useState } from 'react';
 import AudioPlayer from 'react-audio-player';
 import audio from '../assets/audios/LE_listening_A1_Meeting_people_at_a_dinner.mp3'
-
+import ShowPoints from './ShowPoints';
 
 export default function VideoModule() {
     const questions = [
@@ -140,11 +140,26 @@ export default function VideoModule() {
 
     return (
         <>
-            <div >
-               
-                <p class="text-uppercase fs-3">Listening Module {localStorage.getItem("inputValue")}</p>
-                <h1 className='text-uppercase text-center'><strong>Meeting people at a dinner</strong></h1>
-                <div className='row justify-content-around m-3 py-5' >
+
+
+            <div className="row ">
+                <div className="col p-3">
+                    <p class="text-uppercase fs-3">Listening Module </p>
+                </div>
+                <div className="col-8">
+                    <h1 className='text-uppercase text-center'><strong>Meeting people at a dinner</strong></h1>
+
+                </div>
+                <div className="col-2">
+                    <ShowPoints parentToChild={localStorage.getItem("inputValue")} />
+                </div>
+                {/* //  <LocalStorage parentToChild={location.state.name} /> */}
+            </div>
+            <div className='container p-5'>
+
+
+
+                <div className='row justify-content-around m-3 p-5' >
                     <AudioPlayer
                         src={audio}
                         autoPlay
@@ -154,7 +169,7 @@ export default function VideoModule() {
 
             </div>
 
-            <Row className='row justify-content-around m-3 py-5'>
+            <Row className='row justify-content-around '>
 
 
                 <Col className='col-5'>
@@ -172,11 +187,11 @@ export default function VideoModule() {
                             </>
                         ) : (
                             <>
-                                <div className='question-section py-5'>
-                                    <div className='question-count'>
-                                        <span>Question {currentQuestion + 1}</span>/{questions.length}
+                                <div className='question-section'>
+                                    <div className='question-count  '>
+                                        <span className='text bg-white rounded-2 p-2'>Question {currentQuestion + 1}/{questions.length}</span>
                                     </div>
-                                    <div className='question-text'>{questions[currentQuestion].questionText}</div>
+                                    <div className='question-text  bg-white rounded-3'>{questions[currentQuestion].questionText}</div>
                                 </div>
                                 <div className='answer-section '>
                                     {questions[currentQuestion].answerOptions.map((answerOption, index) => (
