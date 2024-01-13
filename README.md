@@ -22,7 +22,7 @@ Getting Started
 
     bash
 
-git clone https://github.com/your-username/verbasure.git
+git clone https://github.com/your-username/verbasure2.0.git
 
 Install Dependencies:
 
