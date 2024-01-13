@@ -1,10 +1,14 @@
 import { Row, Col } from 'reactstrap';
 import './Starter.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AudioPlayer from 'react-audio-player';
 import audio from '../assets/audios/LE_listening_A1_Meeting_people_at_a_dinner.mp3'
 import ShowPoints from './ShowPoints';
-
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import trophy_img from '../assets/medals/trophy.png'
+import cone_image from '../assets/medals/cone_left.png'
+import Swal from 'sweetalert2'
 export default function VideoModule() {
     const questions = [
         {
@@ -13,7 +17,7 @@ export default function VideoModule() {
                 { answerText: 'True', isCorrect: false },
                 { answerText: 'False', isCorrect: true },
             ],
-            hint: '',
+            hint: 'Try Again!',
         },
         {
             questionText: "Ben is Alyssa's brother.",
@@ -21,7 +25,7 @@ export default function VideoModule() {
                 { answerText: 'True', isCorrect: true },
                 { answerText: 'False', isCorrect: false },
             ],
-            hint: '',
+            hint: 'Try Again!',
         },
         {
             questionText: "They were at Ben's wedding.",
@@ -29,7 +33,7 @@ export default function VideoModule() {
                 { answerText: 'True', isCorrect: true },
                 { answerText: 'False', isCorrect: false },
             ],
-            hint: '',
+            hint: 'Try Again!',
         },
         {
             questionText: 'The wedding was in February.',
@@ -37,7 +41,7 @@ export default function VideoModule() {
                 { answerText: 'True', isCorrect: false },
                 { answerText: 'False', isCorrect: true },
             ],
-            hint: '',
+            hint: 'Try Again!',
         },
         {
             questionText: 'Julian says the wrong name.',
@@ -45,14 +49,14 @@ export default function VideoModule() {
                 { answerText: 'True', isCorrect: true },
                 { answerText: 'False', isCorrect: false },
             ],
-            hint: '',
+            hint: 'Try Again!',
         }, {
             questionText: "Alyssa doesn't want a drink",
             answerOptions: [
                 { answerText: 'True', isCorrect: false },
                 { answerText: 'False', isCorrect: true },
             ],
-            hint: '',
+            hint: 'Try Again!',
         },
 
 
@@ -83,6 +87,7 @@ export default function VideoModule() {
         } else {
             setScore(score - 50);
             setShowHint(true)
+            handleShow(true)
         }
 
     };
@@ -101,6 +106,7 @@ export default function VideoModule() {
             setShowScore(true)
             setShowHint(false)
             setShowSuccess(false)
+            levelSuccess()
         }
     }
 
@@ -125,6 +131,54 @@ export default function VideoModule() {
         }
     };
 
+    //submit answers
+    const navigate = useNavigate();
+    const submitResult = async () => {
+        let x = score;
+        let y = currentScore;
+        let z = x + y;
+        const values = {
+            name: localStorage.getItem("inputValue"),
+            points: z,
+        }
+        await axios.post('http://localhost:3002/submit', values)
+            .then(res => {
+                if (res.status === 200) {
+                    console.log(res)
+                    //window.location.reload();
+                    getLatesetPoints()
+                    navigate('/travelsrilanka')
+                }
+
+
+
+
+            })
+            .catch(err => console.log(err));
+    }
+
+
+    //get current Points
+    useEffect(() => {
+
+        getLatesetPoints();
+    });
+
+    const [values] = useState({
+        name: localStorage.getItem("inputValue"),
+        CurrentPoints: localStorage.getItem("currentPointsValue")
+    })
+    const [currentScore, setCurrentScore] = useState(0);
+    const getLatesetPoints = async () => {
+        await axios.post('http://localhost:3002/points', values)
+            .then(res => {
+                // setImageData(res.data[0])
+                setCurrentScore(res.data[0].points)
+               
+                console.log(res.data[0].points)
+            })
+            .catch(err => console.log(err));
+    }
 
 
 
@@ -138,20 +192,42 @@ export default function VideoModule() {
     }
 
 
+    //pop-up form
+    const [showModal, setShowModal] = useState(false);
+
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
+
+
+  //Show level Success Message
+
+  const levelSuccess = () =>{
+
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title:"MEETING PEOPLE AT DINNER",
+      text : "Audio Module Completed!!!",
+      showConfirmButton: false,
+      timer: 5000
+    });
+  }
+
     return (
         <>
 
 
             <div className="row ">
                 <div className="col p-3">
-                    <p class="text-uppercase fs-3">Listening Module </p>
+                    <p class=" text-uppercase fs-3">Listening Module </p>
                 </div>
+
                 <div className="col-8">
-                    <h1 className='text-uppercase text-center'><strong>Meeting people at a dinner</strong></h1>
+                    <h3 className='main-title text-uppercase text-center'><strong>Meeting people at a dinner</strong></h3>
 
                 </div>
                 <div className="col-2">
-                    <ShowPoints parentToChild={localStorage.getItem("inputValue")} />
+                    <ShowPoints childPoints={currentScore} parentToChild={localStorage.getItem("inputValue")} />
                 </div>
                 {/* //  <LocalStorage parentToChild={location.state.name} /> */}
             </div>
@@ -176,12 +252,37 @@ export default function VideoModule() {
                     <div className='container text-center'>
                         {showScore ? (
                             <>
+
                                 <div className='score-section p-3'>
-                                    You scored {score}
+                                    <h2 class="text-success bg-white rounded-4"><strong>+{score}xp</strong></h2>
+                                    <h2 class="text-warning bg-white rounded-4"><strong>MEETUP WITH FRIENDS<br></br> LISTENING MODULE COMPLETED!!!</strong></h2>
                                 </div>
-                                <div>
+
+                                <div className='col'>
+                                    <img src={trophy_img}></img>
+
+                                </div>
+                                <div className='row'>
+                                    <div className='col-3'>
+                                        <img src={cone_image}></img>
+
+                                    </div>
+                                    <div className='col'>
+
+                                    </div>
+                                    <div className='col' style={{ transform: 'scaleX(-1)' }} >
+                                        <img src={cone_image}></img>
+
+                                    </div>
+                                </div>
+                                <div className='py-3'>
                                     <button type='button' className='btn btn-outline-info w-50' onClick={() => { resetQuiz() }}>
                                         RESET
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type='button' className='btn btn-outline-info w-50' onClick={() => { submitResult() }}>
+                                        GO TO NEXT
                                     </button>
                                 </div>
                             </>

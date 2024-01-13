@@ -4,24 +4,20 @@ import { Link, useLocation } from "react-router-dom";
 import DisplayAvatarBar from "./DisplayAvatarBar";
 const navigation = [
   {
-    title: "Dashboard",
-    href: "/dashboard",
+    title: "Home",
+    href: "/home",
+    icon: "bi bi-house",
+  },
+  {
+    title: "Story-line",
+    href: "/readmodule",
     icon: "bi bi-speedometer2",
   },
-  {
-    title: "Lessons",
-    href: "/moduletype",
-    icon: "bi bi-bell",
-  },
+ 
   {
     title: "Leaderboard",
-    href: "/badges",
+    href: "/leaderboard",
     icon: "bi bi-patch-check",
-  },
-  {
-    title: "Settings",
-    href: "/buttons",
-    icon: "bi bi-hdd-stack",
   }
 ];
 

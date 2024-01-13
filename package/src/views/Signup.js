@@ -13,6 +13,7 @@ function Signup() {
         email: '',
         password: '',
         avatar_image: null,
+        points:0,
     })
     const navigate = useNavigate();
     const [errors, setErrors] = useState({})
@@ -29,6 +30,7 @@ function Signup() {
         valuesToSend.append('email', values.email);
         valuesToSend.append('password', values.password);
         valuesToSend.append('avatar_image', values.avatar_image);
+        valuesToSend.append('points',values.points )
         setErrors(Validation(values));
         if (errors.name === "" && errors.email === "" && errors.password === "") {
 

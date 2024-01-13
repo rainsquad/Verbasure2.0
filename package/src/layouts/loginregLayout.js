@@ -9,8 +9,9 @@ import Logo from "../assets/images/logos/Verbasure.svg";
 const LoginRegLayout = () => {
   return (
     <main  class="bg-image "
-    style={{ backgroundImage:`url(${backgrounb_image})`,backgroundRepeat:"no-repeat",backgroundSize:"cover" , width: '100vw',
-    height: '100vh'
+    style={{ backgroundImage:`url(${backgrounb_image})`,backgroundRepeat:"no-repeat",
+    backgroundSize:"cover" , width: '100%',
+    height: '100%'
     }}>
 
       

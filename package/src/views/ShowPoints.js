@@ -5,15 +5,13 @@ import React, { useState, useEffect } from "react";
 import img_star from '../assets/images/bg/img_star.png'
 
 
-export default function ShowPoints() {
-
-
-
-
+export default function ShowPoints({ childPoints }) {
 
     const [values] = useState({
         name: localStorage.getItem("inputValue"),
+        CurrentPoints: localStorage.getItem("currentPointsValue")
     })
+
     const [imageData, setImageData] = useState([]);
     const [points, setPoints] = useState([])
 
@@ -34,49 +32,50 @@ export default function ShowPoints() {
             .then(res => {
                 // setImageData(res.data[0])
                 setPoints(res.data[0].points)
-                console.log(res.data[0].points)
+                //console.log(res.data[0].points)
             })
             .catch(err => console.log(err));
 
     }, []
     )
 
-    console.log(localStorage.getItem("inputValue"))
+    // console.log(localStorage.getItem("inputValue"))
     return (
 
-        <div className='container  rounded-5'>
-
-            <div className='container d-flex align-items-end'>
-                <div className='gap-2' >
 
 
-                    <div className='row align-items-start pt-5 '>
+        <div className='card  align-items-center' style={{ width: "18rem" }}>
 
-
-
-                        <div className='col m-0'>
-                            <h2><strong className='text-white'>{localStorage.getItem("inputValue")}</strong></h2>
-
-                            <div className='row align-items-start '>
-                                <div className='col'>
-                                    <strong className='text-white fs-4'>{points}xp</strong>
-                                </div>
-
-
+            <div className='row '>
+                <div className='col'>
+                    <img className='rounded-circle ' style={{ width: "100px", height: "80px" }} src={`http://localhost:3002/images/` + imageData.image} alt='card image cap'></img>
+                </div>
+                <div className='col '>
+                    <h2><strong className='text-black'>{localStorage.getItem("inputValue")}</strong></h2>
+                   
+                        <div className='row '>
+                        <div className="col-md-2">
+                                <i class="bi bi-star-fill  fs-6 text-warning "></i>
                             </div>
-
+                            <div className='col-md-8'>
+                                <strong className='text-black fs-6 text'>{childPoints == "" ? points : childPoints}xp</strong>
+                            </div>
+                          
 
                         </div>
-                        <div className='col m-0'>
-                            <img className='rounded-circle card-img-top ' style={{ width: "100px", height: "100px" }} src={`http://localhost:3002/images/` + imageData.image} alt='card image cap'></img>
-                        </div>
-                    </div>
+
+                   
 
 
                 </div>
 
             </div>
+
+
         </div>
+
+
+
 
 
 

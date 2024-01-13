@@ -4,7 +4,11 @@ import imageFriends from "../assets/images/bg/friends.png"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ShowPoints from './ShowPoints';
-
+import { useNavigate } from 'react-router-dom'
+import cone_image from '../assets/medals/cone_left.png'
+import trophy_img from '../assets/medals/trophy.png'
+import Swal from 'sweetalert2'
+import avatar from '../assets/avatars/image 55.png'
 export default function ReadModule() {
 
 
@@ -158,11 +162,24 @@ export default function ReadModule() {
 
       setShowHint(true)
       setShowSuccess(false)
+      popUpHint()
+
     }
   };
 
+  
 
-
+  const popUpHint =() =>
+  {
+    Swal.fire({
+      title: "Sweet!",
+      text: "Modal with a custom image.",
+      imageUrl: avatar,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: "Custom image"
+    });
+  }
 
 
   //Submit Answer
@@ -173,10 +190,12 @@ export default function ReadModule() {
       setSelectedAnswer(null);
       setShowHint(false)
       setShowSuccess(false)
+
     } else {
       setShowScore(true)
       setShowHint(false)
       setShowSuccess(false)
+      levelSuccess()
     }
   }
 
@@ -218,6 +237,41 @@ export default function ReadModule() {
     }
 
   };
+  //get Current Points
+
+
+
+
+  //Submit resultss
+
+  const navigate = useNavigate();
+  const submitResult = async () => {
+    let x = score;
+    let y = currentScore;
+    let z = x + y;
+    const values = {
+      name: localStorage.getItem("inputValue"),
+      points: z,
+    }
+    console.log("Score " + x)
+    console.log("current Score" + y)
+    console.log("Total Score" + z)
+    await axios.post('http://localhost:3002/submit', values)
+      .then(res => {
+        if (res.status === 200) {
+        //console.log(res)
+          navigate('/videomodule')
+         // window.location.reload();
+       
+      
+        }
+
+
+
+
+      })
+      .catch(err => console.log(err));
+  }
 
   //reset Quiz
 
@@ -228,14 +282,42 @@ export default function ReadModule() {
     setShowScore(false);
   }
 
+//get current Points
+useEffect(() => {
+
+    getLatesetPoints();
+});
+
+  const [values] = useState({
+    name: localStorage.getItem("inputValue"),
+    CurrentPoints: localStorage.getItem("currentPointsValue")
+  })
+  const [currentScore, setCurrentScore] = useState(0);
+  const getLatesetPoints = async () => {
+    await axios.post('http://localhost:3002/points', values)
+      .then(res => {
+        // setImageData(res.data[0])
+        setCurrentScore(res.data[0].points)
+        //navigate('/videomodule')
+        console.log(res.data[0].points)
+      })
+      .catch(err => console.log(err));
+  }
 
 
+  //Show level Success Message
 
-  //sending data to show points tab
+    const levelSuccess = () =>{
 
-
-
-
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title:"MEETING UP WITH FRIENDS",
+        text : "Reading Module Completed!!!",
+        showConfirmButton: false,
+        timer: 5000
+      });
+    }
   return (
     <>
       <div className="row ">
@@ -243,11 +325,11 @@ export default function ReadModule() {
           <p class="text-uppercase fs-3">Reading Module </p>
         </div>
         <div className="col-8">
-          <h1 className='text-uppercase text-center'><strong>Meeting Up with Friends</strong></h1>
+          <h1 className='main-title text-uppercase text-center'><strong>Meeting Up with Friends</strong></h1>
 
         </div>
         <div className="col-2">
-          <ShowPoints parentToChild={localStorage.getItem("inputValue")} />
+          <ShowPoints childPoints={currentScore} parentToChild={localStorage.getItem("inputValue")} />
         </div>
         {/* //  <LocalStorage parentToChild={location.state.name} /> */}
       </div>
@@ -290,7 +372,7 @@ export default function ReadModule() {
                   <button type='button' className='btn btn-outline-secondary rounded-2 w-100' onClick={handlePrevClick} >PREVIOUS</button>
                 </div>
                 <div class="col-5">
-                  <button type='button' className='btn btn-outline-primary rounded-2 w-100' onClick={handleNextClick} >NEXT</button>
+                  <button type='button' className='btn btn-outline-primary rounded-2 w-100' onClick={submitResult} >NEXT</button>
                 </div>
               </div>
 
@@ -302,11 +384,30 @@ export default function ReadModule() {
             {showScore ? (
               <>
                 <div className='score-section p-3'>
-                  You scored {score}
+                  <h2 class="text-success bg-white rounded-4"><strong>+{score}xp</strong></h2>
+                  <h2 class="text-warning bg-white rounded-4"><strong>MEETUP WITH FRIENDS<br></br> READING LEVEL COMPLETED!!!</strong></h2>
                 </div>
-                <div>
+                <div className='row'>
+                  <div className='col'>
+                    <img src={cone_image}  alt=''></img>
+
+                  </div>
+                  <div className='col'>
+                  <img src={trophy_img}  alt=''></img>
+                  </div>
+                  <div className='col' style={{ transform: 'scaleX(-1)' }} >
+                    <img src={cone_image}  alt=''></img>
+
+                  </div>
+                </div>
+                <div className='py-4'>
                   <button type='button' className='btn btn-outline-info w-50' onClick={() => { resetQuiz() }}>
                     RESET
+                  </button>
+                </div>
+                <div>
+                  <button type='button' className='btn btn-outline-info w-50' onClick={() => { submitResult() }}>
+                    GO TO NEXT
                   </button>
                 </div>
               </>

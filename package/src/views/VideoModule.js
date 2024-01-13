@@ -3,8 +3,12 @@ import './Starter.css';
 import React, { useState } from 'react';
 import YoutubeEmbed from './YoutubeEmbed';
 import ShowPoints from './ShowPoints';
-
-
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react';
+import axios from 'axios';
+import trophy_img from '../assets/medals/trophy.png'
+import cone_image from '../assets/medals/cone_left.png'
+import Swal from 'sweetalert2'
 export default function VideoModule() {
     const questions = [
         {
@@ -62,7 +66,7 @@ export default function VideoModule() {
     ];
 
 
-    //Show Video
+
 
 
 
@@ -104,6 +108,7 @@ export default function VideoModule() {
             setShowScore(true)
             setShowHint(false)
             setShowSuccess(false)
+            levelSuccess()
         }
     }
 
@@ -129,7 +134,37 @@ export default function VideoModule() {
     };
 
 
+    //get points
 
+
+    //Submit resultss
+
+    const navigate = useNavigate();
+    const submitResult = async () => {
+        let x = score;
+        let y = currentScore;
+        let z = x + y;
+        const values = {
+            name: localStorage.getItem("inputValue"),
+            points: z,
+        }
+        // console.log("Score " + x)
+        console.log("current Score" + y)
+        // console.log("Total Score" + z)
+        await axios.post('http://localhost:3002/submit', values)
+            .then(res => {
+                if (res.status === 200) {
+                    
+                    getLatesetPoints()
+                    navigate('/listenmodule')
+                }
+
+
+
+
+            })
+            .catch(err => console.log(err));
+    }
 
     //reset Quiz
 
@@ -141,6 +176,44 @@ export default function VideoModule() {
     }
 
 
+    //get current Points
+    useEffect(() => {
+
+        getLatesetPoints();
+    });
+
+
+    const [values] = useState({
+        name: localStorage.getItem("inputValue"),
+        CurrentPoints: localStorage.getItem("currentPointsValue")
+    })
+    const [currentScore, setCurrentScore] = useState(0);
+    const getLatesetPoints = async () => {
+        await axios.post('http://localhost:3002/points', values)
+            .then(res => {
+                // setImageData(res.data[0])
+                setCurrentScore(res.data[0].points)
+                // navigate('/listenmodule')
+                console.log(res.data[0].points)
+            })
+            .catch(err => console.log(err));
+    }
+
+     //Show level Success Message
+
+     const levelSuccess = () =>{
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title:"CONVERSATION BETWEEN TWO FRIENDS",
+          text : "Video Module Completed!!!",
+          showConfirmButton: false,
+          timer: 5000
+        });
+      }
+
+
     return (
         <>
             <div className="row ">
@@ -149,12 +222,14 @@ export default function VideoModule() {
                     <p class="text-uppercase fs-3">Video Module</p>
                 </div>
                 <div className="col-8">
-                    <h1 className='text-uppercase text-center'><strong>Conversation between two friends</strong></h1>
+                    <h1 className='main-title text-uppercase text-center'><strong>Conversation between two friends</strong></h1>
+
 
 
                 </div>
                 <div className="col-2">
-                    <ShowPoints parentToChild={localStorage.getItem("inputValue")} />
+                    {/* // <ShowPoints parentToChild={localStorage.getItem("inputValue")} /> */}
+                    <ShowPoints childPoints={currentScore} parentToChild={localStorage.getItem("inputValue")} />
                 </div>
                 {/* //  <LocalStorage parentToChild={location.state.name} /> */}
             </div>
@@ -170,11 +245,36 @@ export default function VideoModule() {
                         {showScore ? (
                             <>
                                 <div className='score-section p-3'>
-                                    You scored {score}
+                                    <h2 class="text-success bg-white rounded-4"><strong>+{score}xp</strong></h2>
+                                    <h2 class="text-warning bg-white rounded-4"><strong>MEETUP WITH FRIENDS<br></br> VIDEO MODULE COMPLETED!!!</strong></h2>
                                 </div>
-                                <div>
+
+                                <div className='col'>
+                                    <img src={trophy_img} alt=''></img>
+
+                                </div>
+                                <div className='row'>
+                                    <div className='col'>
+                                        <img src={cone_image} alt=''></img>
+
+                                    </div>
+                                    <div className='col'>
+
+                                    </div>
+                                    <div className='col' style={{ transform: 'scaleX(-1)' }} >
+                                        <img src={cone_image} alt=''></img>
+
+                                    </div>
+                                </div>
+
+                                <div className='py-3'>
                                     <button type='button' className='btn btn-outline-info w-50' onClick={() => { resetQuiz() }}>
                                         RESET
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type='button' className='btn btn-outline-info w-50' onClick={() => { submitResult() }}>
+                                        GO TO NEXT
                                     </button>
                                 </div>
                             </>
@@ -228,7 +328,7 @@ export default function VideoModule() {
                     </div>
                 </Col>
 
-            </Row>
+            </Row >
 
         </>
     );

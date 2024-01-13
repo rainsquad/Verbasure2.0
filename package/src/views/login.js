@@ -28,8 +28,8 @@ function Login() {
                 .then(res => {
                     if (res.data.Message === "Success") {
              
-                       console.log(res.data.userName+'Login')
-                        navigate('/starter', { state:{name:res.data.userName} });
+                     //  console.log(res.data.pointsLogin)
+                        navigate('/starter', { state:{name:res.data.userName,currentPoints:res.data.pointsLogin} });
                     } else {
                         alert("No User")
                     }
